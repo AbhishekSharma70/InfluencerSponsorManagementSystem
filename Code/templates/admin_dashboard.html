@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary" style="text-align: left;">
+        <h1 class="navbar-brand";>InfluencerConnect | Admin Dashboard</h1>
+        <div style="padding-left: 50%;"><a href="{{ url_for('admin_users') }}" class="btn btn-primary">All Users</a></div>
+        <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+    </nav>
+    
+
+    <div class="container mt-4">
+        <h2>Application Statistics</h2>
+        <br>
+        <!-- Active Users Chart -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Active Users</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="activeUsersChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Campaigns Chart -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Campaigns</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="campaignsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Ad Requests Chart -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Ad Requests</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="adRequestsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Flagged Users Chart -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Flagged Users</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="flaggedUsersChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const activeUsersCtx = document.getElementById('activeUsersChart').getContext('2d');
+        const activeUsersChart = new Chart(activeUsersCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Sponsors', 'Influencers', 'Admins'],
+                datasets: [{
+                    label: 'Active Users',
+                    data: [{{ active_users.sponsors }}, {{ active_users.influencers }}, {{ active_users.admins }}],
+                    backgroundColor: ['#007bff', '#28a745', '#dc3545'],
+                    borderColor: ['#007bff', '#28a745', '#dc3545'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const campaignsCtx = document.getElementById('campaignsChart').getContext('2d');
+        const campaignsChart = new Chart(campaignsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Public', 'Private'],
+                datasets: [{
+                    label: 'Campaigns',
+                    data: [{{ campaigns.public }}, {{ campaigns.private }}],
+                    backgroundColor: ['#007bff', '#28a745'],
+                    borderColor: ['#007bff', '#28a745'],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        const adRequestsCtx = document.getElementById('adRequestsChart').getContext('2d');
+        const adRequestsChart = new Chart(adRequestsCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Pending', 'Accepted', 'Rejected'],
+                datasets: [{
+                    label: 'Ad Requests',
+                    data: [{{ ad_requests.pending }}, {{ ad_requests.accepted }}, {{ ad_requests.rejected }}],
+                    backgroundColor: ['#ffc107', '#28a745', '#dc3545'],
+                    borderColor: ['#ffc107', '#28a745', '#dc3545'],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        const flaggedUsersCtx = document.getElementById('flaggedUsersChart').getContext('2d');
+        const flaggedUsersChart = new Chart(flaggedUsersCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Flagged Sponsors', 'Flagged Influencers'],
+                datasets: [{
+                    label: 'Flagged Users',
+                    data: [{{ flagged_users.sponsors }}, {{ flagged_users.influencers }}],
+                    backgroundColor: ['#dc3545', '#ffc107'],
+                    borderColor: ['#dc3545', '#ffc107'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

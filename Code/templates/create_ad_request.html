@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Ad Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body style="background-color:rgb(210, 212, 135);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">InfluencerConnect| AdRequest</a>
+        {% if 'username' in session %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('sponsor_dashboard') }}">Dashboard</a>
+                </li>
+            </ul>
+            <span class="navbar-text">Logged in as {{ session['username'] }}</span>
+        {% else %}
+            <a href="{{ url_for('sponsor_login') }}" class="btn btn-secondary">Login</a>
+        {% endif %}
+    </nav>
+    <div class="container" style="background-color:rgb(133, 196, 175); width: 500px; margin-top:80px; padding-top:50px; padding-bottom:50px;">
+        <h1>Create Ad Request</h1>
+        <form method="POST" action="{{ url_for('create_ad_request', campaign_id=campaign_id) }}">
+            <label for="campaign_id">Campaign</label>
+            <select class="form-control" id="campaign_id" name="campaign_id" required>
+                {% for campaign in campaigns %}
+                <option value="{{campaign.id}}">{{campaign.name}}</option>
+                {% endfor %}
+            </select>
+            <label for="influencer_id">Influencers</label>
+            <select class="form-control" id="influencer_id" name="influencer_id" required>
+                {% for influencer in influencers %}
+                <option value="{{influencer.id}}">{{influencer.username}}</option>
+                {% endfor %}
+            </select>
+            <div class="form-group">
+                <label for="messages">Messages</label>
+                <textarea class="form-control" id="messages" name="messages" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="requirements">Requirements</label>
+                <textarea class="form-control" id="requirements" name="requirements" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="payment_amount">Payment Amount(in K)</label>
+                <input type="number" class="form-control" id="payment_amount" name="payment_amount" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-control" id="status" name="status" required>
+                    <option value="Pending">Pending</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Ad Request</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <nav class="navbar navbar-dark bg-primary">
+        <h1 class="navbar-brand";>InfluencerConnect | Update your profile</h1>
+        <span class="navbar-text">Logged in as {{ session['username'] }}</span>
+        <a href="{{ url_for('sponsor_dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+    </nav>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body style="background-color:rgb(210, 212, 135);">
+    <form method="post" action="{{ url_for('sponsor_update_profile') }}" class="container" class="container" style="background-color:rgb(133, 196, 175); width: 500px; margin-top:80px; padding-top:50px; padding-bottom:50px;">
+        <div class="form-group">
+            <label for="company_name">Company Name:</label>
+            <input type="text" class="form-control" id="company_name" name="company_name" value="{{ profile.company_name if profile else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="industry">Industry:</label>
+            <input type="text" class="form-control" id="industry" name="industry" value="{{ profile.industry if profile else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="budget">Budget(in K):</label>
+            <input type="number" class="form-control" id="budget" name="budget" value="{{ profile.budget if profile else '' }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</body>
+</html>

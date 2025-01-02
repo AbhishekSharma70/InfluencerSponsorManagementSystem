@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">InfluencerConnect| All Users</a>
+        {% if 'username' in session %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+                </li>
+            </ul>
+            <span class="navbar-text">Logged in as {{ session['username'] }}</span>
+        {% else %}
+            <a href="{{ url_for('admin_login') }}" class="btn btn-secondary">Login</a>
+        {% endif %}
+    </nav>
+
+    <div class="container mt-4">
+        <h2>All Sponsors</h2>
+        <div class="list-group">
+            {% for sponsor in sponsors %}
+                <div class="list-group-item mb-3">
+                    <p><strong>Username:</strong> {{ sponsor.username }}</p>
+                    <p><strong>Industry:</strong> {{ sponsor.industry }}</p>
+                    <p><strong>Flagged:</strong> {{ sponsor.flagged }}</p>
+                    <form action="{{ url_for('flag_user', user_type='sponsor', user_id=sponsor.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-warning">{{ 'unflag' if sponsor.flagged else 'flag' }}</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2>All Influencers</h2>
+        <div class="list-group">
+            {% for influencer in influencers %}
+                <div class="list-group-item mb-3">
+                    <p><strong>Username:</strong> {{ influencer.username }}</p>
+                    <p><strong>Platform Presence:</strong> {{ influencer.platform_presence }}</p>
+                    <p><strong>Flagged:</strong> {{ influencer.flagged }}</p>
+                    <form action="{{ url_for('flag_user', user_type='influencer', user_id=influencer.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-warning">{{ 'unflag' if influencer.flagged else 'flag' }}</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

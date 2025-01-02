@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Influencer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <!-- Navbar content -->
+        <h1 class="navbar-brand";>InfluencerConnect | Influencer Dashboard</h1>
+        <a href="{{ url_for('view_sponsor_profiles') }}" class="btn btn-primary">View Sponsors</a>
+        <a href="{{ url_for('show_campaigns') }}" class="btn btn-primary">Show Campaigns</a>
+        <a href="{{ url_for('show_private_campaigns') }}" class="btn btn-primary">Private Campaigns</a>
+        <a href="{{ url_for('influencer_update_profile') }}" class="btn btn-primary">Profile</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+    </nav>
+    <br>
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-warning" role="alert">
+                    {% for category, message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <h3>Ad Requests</h3>
+    <br>
+        <div class="list-group">
+            {% for ad_request in ad_requests %}
+                <div class="list-group-item mb-3">
+                    <p><strong>Campaign:</strong> {{ ad_request.campaign_name }}</p>
+                    <p><strong>Messages:</strong> {{ ad_request.messages }}</p>
+                    <p><strong>Requirements:</strong> {{ ad_request.requirements }}</p>
+                    <p><strong>Payment Amount:</strong> {{ ad_request.payment_amount }}</p>
+                    {% if ad_request.status == 'Pending' %}
+                    <div>
+                        <form method="post" action="{{ url_for('update_ad_request_payment', ad_request_id=ad_request.id) }}" style="margin-top: 10px;">
+                            <div>
+                                <label for="payment_amount">Update Payment Amount:</label>
+                                <input type="text" name="payment_amount" placeholder="Enter new payment amount">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Payment</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                    <p><strong>Status:</strong> {{ ad_request.status }}</p>
+                    {% if ad_request.status == 'Pending' %}
+                        <form method="post" action="{{ url_for('update_ad_request_status', ad_request_id=ad_request.id) }}">
+                            <div class="form-group">
+                                <label for="status">Update Status:</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="Accepted">Accept</option>
+                                    <option value="Rejected">Reject</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Status</button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>No ad requests found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

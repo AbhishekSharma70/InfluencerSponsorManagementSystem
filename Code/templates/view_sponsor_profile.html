@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Sponsor Profiles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <h1 class="navbar-brand";>InfluencerConnect | Sponsor Profiles</h1>
+        <a href="{{ url_for('influencer_dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>All Sponsor Profiles</h2>
+        <div class="list-group">
+            {% for profile in sponsor_profiles %}
+                <div class="list-group-item mb-3">
+                    <p><strong>Sponsor Id:</strong> {{ profile.sponsor_id }}</p>
+                    <p><strong>Company Name:</strong> {{ profile.company_name }}</p>
+                    <p><strong>Industry:</strong> {{ profile.industry }}</p>
+                    <p><strong>Budget:</strong> {{ profile.budget }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

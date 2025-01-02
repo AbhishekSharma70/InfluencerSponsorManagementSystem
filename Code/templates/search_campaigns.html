@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Campaigns</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">InfluencerConnect</a>
+        {% if 'username' in session %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('influencer_dashboard') }}">Dashboard</a>
+                </li>
+            </ul>
+            <span class="navbar-text">Logged in as {{ session['username'] }}</span>
+        {% else %}
+            <a href="{{ url_for('influencer_login') }}" class="btn btn-secondary">Login</a>
+        {% endif %}
+    </nav>
+    <br>
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-warning" role="alert">
+                    {% for category, message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <div class="container mt-4">
+        <h1>View Sponsors</h1>
+        <br>
+        <form method="POST">
+            <div class="form-group">
+                <label for="budget">Minimum Budget</label>
+                <input type="number" class="form-control" id="budget" name="budget" step="1">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</body>
+</html>

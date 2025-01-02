@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay Ad Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Pay for Ad Request</h2>
+        <form action="{{ url_for('pay_ad_request', ad_request_id=ad_request.id) }}" method="POST">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="purpose">Purpose</label>
+                <input type="text" class="form-control" id="purpose" name="purpose" value="Ad Request Payment" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="payment_amount">Payment Amount</label>
+                <input type="number" class="form-control" id="payment_amount" name="payment_amount" value="{{ ad_request.payment_amount }}" step="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-success">Pay Now</button>
+        </form>
+    </div>
+</body>
+</html>

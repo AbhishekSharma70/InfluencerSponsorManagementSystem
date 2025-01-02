@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InfluencerConnect | Update Your Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body style="background-color: rgb(210, 212, 135);">
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <h1  class="navbar-brand";>InfluencerConnect | Update Your Profile</h1>
+            <a href="{{ url_for('influencer_dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="container" style="background-color: rgb(133, 196, 175); width: 500px; margin-top: 100px; padding: 50px;">
+        <form method="post" action="{{ url_for('influencer_update_profile') }}">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ profile.name if profile else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <input type="text" class="form-control" id="category" name="category" value="{{ profile.category if profile else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="niche">Niche:</label>
+                <input type="text" class="form-control" id="niche" name="niche" value="{{ profile.niche if profile else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="reach">Reach(in K):</label>
+                <input type="number" class="form-control" id="reach" name="reach" value="{{ profile.reach if profile else '' }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+    </div>
+</body>
+</html>

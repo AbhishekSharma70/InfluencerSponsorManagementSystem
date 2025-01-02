@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Influencer Profiles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <h1 style="font-size:small";>InfluencerConnect | All Influencer Profiles</h1>
+        <a href="{{ url_for('sponsor_dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>All Influencer Profiles</h2>
+        <div class="list-group">
+            {% for profile in influencer_profiles %}
+                <div class="list-group-item mb-3">
+                    <p><strong>Influencer Id:</strong> {{ profile.influencer_id}}</p>
+                    <p><strong>Name:</strong> {{ profile.name }}</p>
+                    <p><strong>Category:</strong> {{ profile.category }}</p>
+                    <p><strong>Niche:</strong> {{ profile.niche }}</p>
+                    <p><strong>Reach(in K):</strong> {{ profile.reach }}</p>
+                </div>
+            {% else %}
+                <p>No influencer profiles found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

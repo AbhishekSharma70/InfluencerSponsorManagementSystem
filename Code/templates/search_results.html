@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">InfluencerConnect</a>
+        {% if 'username' in session %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('influencer_dashboard') }}">Dashboard</a>
+                </li>
+            </ul>
+            <span class="navbar-text">Logged in as {{ session['username'] }}</span>
+        {% else %}
+            <a href="{{ url_for('influencer_login') }}" class="btn btn-secondary">Login</a>
+        {% endif %}
+    </nav>
+    <br>
+    <div class="container mt-4">
+        <h1>Search Results</h1>
+        <div class="list-group">
+            {% if type == 'influencer' %}
+                {% for result in results %}
+                    <div class="list-group-item mb-3">
+                        <p><strong>Influencer ID:</strong> {{ result.influencer_id }}</p>
+                        <p><strong>Name:</strong> {{ result.name }}</p>
+                        <p><strong>Category:</strong> {{ result.category }}</p>
+                        <p><strong>Niche:</strong> {{ result.niche }}</p>
+                        <p><strong>Reach:</strong> {{ result.reach }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if type == 'campaign' %}
+                {% for result in results %}
+                    <div class="list-group-item mb-3">
+                        <p><strong>Campaign ID:</strong> {{ result.id }}</p>
+                        <p><strong>Name:</strong> {{ result.name }}</p>
+                        <p><strong>Description:</strong> {{ result.description }}</p>
+                        <p><strong>Goals:</strong> {{ result.goals }}</p>
+                        <p><strong>Budget:</strong> {{ result.budget }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

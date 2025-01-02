@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Campaign</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body style="background-color:rgb(210, 212, 135);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">InfluencerConnect| Campaign</a>
+        {% if 'username' in session %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('sponsor_dashboard') }}">Dashboard</a>
+                </li>
+            </ul>
+            <span class="navbar-text">Logged in as {{ session['username'] }}</span>
+        {% else %}
+            <a href="{{ url_for('sponsor_login') }}" class="btn btn-secondary">Login</a>
+        {% endif %}
+    </nav>
+    <div class="container" style="background-color:rgb(133, 196, 175); width: 600px; margin-top:50px; padding: 30px;">
+        <h1>Create Campaign</h1>
+        <form method="POST" action="{{ url_for('create_campaign') }}">
+            <div class="form-group">
+                <label for="name">Campaign Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" required>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget(in K):</label>
+                <input type="number" class="form-control" id="budget" name="budget" required>
+            </div>
+            <div class="form-group">
+                <label for="visibility">Visibility:</label>
+                <select class="form-control" id="visibility" name="visibility" required>
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="goals">Goals:</label>
+                <textarea class="form-control" id="goals" name="goals" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="niche">Niche:</label>
+                <textarea class="form-control" id="niche" name="niche" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Campaign</button>
+            <a href="{{ url_for('sponsor_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body style="background-color:rgb(210, 212, 135);">
+    <nav class="navbar navbar-dark bg-primary">
+        <!-- Navbar content -->
+        <h1 class="navbar-brand";>InfluencerConnect | New User </h1>
+    </nav>
+    <div class="container" style="background-color:rgb(133, 196, 175); width: 500px; margin-top:80px; padding-top:50px; padding-bottom:50px;">
+        <br>
+        <h1>Sign Up</h1>
+        <br>
+        <form action="{{ url_for('signup')}}" method="post">
+            <div class="form-group">
+            <label for="username">Username:</label>
+            <br>
+            <input type="text" name="username" class="form-control" required>
+            </div>
+            <br>
+            <div class="form-group">
+            <label for="password">Password:</label>
+            <br>
+            <input type="password" name="password" class="form-control" required>
+            </div>
+            <br>
+            <div class="form-group">
+            <h1 style="font-size:small;">For Sponsors</h1>
+            <label for="industry">Industry:</label>
+            <br>
+            <input type="text" name="industry" class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+            <h1 style="font-size:small;">For Influencers</h1>
+            <label for="platform_presence">Platform Presence:</label>
+            <br>
+            <input type="text" name="platform_presence" class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+            <label for="role">Role:</label>
+            <select name="role" required>
+              <option value="Sponsor">Sponsor</option>
+              <option value="Influencer">Influencer</option>
+              <option value="Admin">Admin</option>
+            </select>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Signup</button>
+        </form>
+    </div>
+</body>
+</html>
